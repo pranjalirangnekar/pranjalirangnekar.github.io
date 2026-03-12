@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects | Pranjali Rangnekar</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    border-radius: 8px;
+  }
+  .project-card:hover {
+    border-color: var(--pc-border, rgba(79,142,247,0.3));
+    transform: translateY(-3px);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+  }
+  .project-card.wide {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .pc-cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pc-accent, var(--accent));
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.85;
+  }
+  .pc-cat::before { content: ''; width: 18px; height: 1px; background: var(--pc-accent, var(--accent)); opacity: 0.6; }
+
+  .pc-title {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .pc-desc { font-size: 14px; color: var(--text-muted); line-height: 1.75; margin-bottom: 20px; font-weight: 300; }
+  .pc-highlights { list-style: none; margin-bottom: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .pc-highlights li {
+    font-size: 13px;
+    color: rgba(230,237,243,0.7);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .pc-highlights li::before { content: '▸'; position: absolute; left: 0; color: var(--pc-accent, var(--accent)); font-size: 9px; top: 4px; opacity: 0.7; }
+  .pc-highlights li strong { color: var(--text); font-weight: 500; }
+
+  .pc-arrow { position: absolute; top: 22px; right: 22px; opacity: 0.18; color: var(--pc-accent, var(--accent)); font-size: 14px; transition: all 0.2s; }
+  .project-card:hover .pc-arrow { opacity: 0.7; transform: translate(2px, -2px); }
+
+  .pc-media {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 180px;
+    border-radius: 6px;
+  }
+  .pc-media img, .pc-media video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pc-media-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    text-align: center;
+    padding: 20px;
+    line-height: 2;
+  }
+
+  /* GitHub link strip */
+  .github-strip {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .github-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: color 0.2s;
+  }
+  .github-link:hover { color: var(--accent); }
+  .github-link::before { content: '↗'; font-size: 13px; }
+
+  /* Results badge */
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--pc-accent, var(--accent));
+    background: rgba(79,142,247,0.06);
+    border: 1px solid rgba(79,142,247,0.15);
+    padding: 5px 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ---- CUSTOM VIDEO PLAYER ---- */
+  .vid-player-wrap {
+    position: relative;
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .vid-player-wrap video {
+    width: 100%;
+    display: block;
+    max-height: 240px;
+    object-fit: contain;
+    background: #000;
+  }
+  .vid-controls {
+    padding: 9px 12px;
+    background: rgba(13,17,23,0.97);
+    border-top: 1px solid rgba(48,54,61,0.6);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .vid-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 3px 5px;
+    line-height: 1;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  .vid-btn:hover { color: var(--text); }
+  .vid-progress {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--surface2);
+    cursor: pointer;
+    outline: none;
+    border: none;
+  }
+  .vid-progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+  }
+  .vid-progress::-moz-range-thumb {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+  }
+  .vid-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    min-width: 74px;
+    text-align: center;
+  }
+  .vid-speed {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .vid-speed:hover { color: var(--text); border-color: rgba(79,142,247,0.3); }
+
+  /* ---- IMAGE GALLERY ---- */
+  .pc-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+    margin-top: 12px;
+  }
+  .pc-gallery img {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    transition: opacity 0.2s, border-color 0.2s;
+    display: block;
+  }
+  .pc-gallery img:hover { opacity: 0.88; border-color: rgba(79,142,247,0.3); }
+  .pc-gallery-3 { grid-template-columns: repeat(3, 1fr); }
+
+  @media (max-width: 900px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.wide { grid-column: span 1; grid-template-columns: 1fr; }
+    .pc-gallery-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">PR</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cv-projects.html" class="active">Projects</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="hardware.html">Skills</a></li>
+    <li><a href="mailto:prangnekar@wpi.edu">Contact</a></li>
+  </ul>
+  <div class="nav-status"><div class="status-dot"></div>Open to opportunities</div>
+</nav>
+
+<div class="page-content">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Robotics &amp; Computer Vision</div>
+    <h1 class="page-hero-title">Projects</h1>
+    <p class="page-hero-sub">From motion planning in dynamic environments to end-to-end perception pipelines, systems built, validated, and deployed on real hardware.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 01: CORE ROBOTICS -->
+  <!-- ============================================================ -->
+  <section class="section" style="padding-top:0">
+    <div class="section-header fade-in">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Core Robotics</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- DYNAMIC ROADMAPS -->
+      <div class="project-card wide fade-in" style="--pc-accent:#4f8ef7;--pc-border:rgba(79,142,247,0.3)">
+        <div>
+          <div class="pc-cat">Motion Planning</div>
+          <h2 class="pc-title">Dynamic Roadmaps: Real-Time Path Planning in Dynamic Environments</h2>
+          <div class="result-badge" style="--pc-accent:#4f8ef7">⚡ DRM: ~0.2s vs Naive: ~5s, 25× speedup</div>
+          <p class="pc-desc">End-to-end implementation of the Dynamic Roadmaps (DRM) algorithm for motion planning in environments with moving obstacles. Implemented on the <strong>Fetch Robot</strong> in PyBullet using OMPL, developed as part of Motion Planning (RBE 550) at WPI.</p>
+          <ul class="pc-highlights">
+            <li><strong>Roadmap Construction:</strong> Uses PRM to build an initial roadmap in an obstacle-free environment, computed offline so planning is fast at runtime.</li>
+            <li><strong>Dynamic Obstacle Integration:</strong> Checks roadmap nodes and edges for collisions with moving obstacles; removes invalid nodes while maintaining connectivity.</li>
+            <li><strong>Path Repair:</strong> Uses RRTConnect to reconnect disconnected roadmap segments caused by obstacle intrusion.</li>
+            <li><strong>Graph Search:</strong> Dijkstra's algorithm finds the shortest path from start to goal in the updated roadmap.</li>
+            <li><strong>Results:</strong> DRM took ~0.2s vs ~5s for the naive approach (with 5s roadmap construction), demonstrated on Fetch Robot in PyBullet.</li>
+          </ul>
+          <div class="github-strip">
+            <a href="https://github.com/pranjalirangnekar/Dynamic-Roadmaps" class="github-link" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div>
+          <div class="pc-media" style="aspect-ratio:4/3">
+            <img
+              src="https://raw.githubusercontent.com/pranjalirangnekar/Dynamic-Roadmaps/main/DRM_Final_Demo_3.gif"
+              alt="Dynamic Roadmaps Demo, Fetch Robot path planning"
+              style="width:100%;height:100%;object-fit:cover"
+              onerror="this.parentElement.innerHTML='<div class=\'pc-media-label\'>Demo GIF, view at github.com/pranjalirangnekar/Dynamic-Roadmaps</div>'"
+            >
+          </div>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:0.08em;margin-top:10px;text-align:center">Fetch Robot executing DRM-planned trajectory in PyBullet</p>
+        </div>
+      </div>
+
+      <!-- MOBILE MANIPULATION -->
+      <div class="project-card wide fade-in" style="--pc-accent:#6db8a4;--pc-border:rgba(109,184,164,0.3)">
+        <div>
+          <div class="pc-cat">Mobile Manipulation · Northwestern University</div>
+          <h2 class="pc-title">Mobile Manipulation Capstone: youBot Autonomous Pick &amp; Place</h2>
+          <div class="result-badge" style="--pc-accent:#6db8a4;background:rgba(109,184,164,0.06);border-color:rgba(109,184,164,0.15)">🤖 Full kinematics + dynamics + control stack</div>
+          <p class="pc-desc">Capstone project for the Modern Robotics Specialization (Northwestern University / Coursera). Designed and implemented a complete mobile manipulation system for the <strong>KUKA youBot</strong> that autonomously navigates, picks up a block, and places it at a target, simulated in CoppeliaSim.</p>
+          <ul class="pc-highlights">
+            <li><strong>Kinematics:</strong> Full forward/inverse kinematics for the youBot's arm and mobile base using the Modern Robotics Code Library.</li>
+            <li><strong>Trajectory Generation:</strong> Smooth end-effector trajectory planned via screw motion interpolation through grasp, transport, and release phases.</li>
+            <li><strong>Feedback Control:</strong> PI feedforward + feedback controller driving joint velocities to track the reference trajectory with error convergence.</li>
+            <li><strong>Obstacle Avoidance:</strong> Path planning integrated to navigate the mobile base while avoiding obstacles in the environment.</li>
+            <li><strong>Simulation:</strong> Final CSV of robot configurations played back in CoppeliaSim; full task execution visualized in real time.</li>
+          </ul>
+          <div class="github-strip">
+            <a href="https://github.com/pranjalirangnekar/Mobile-Manipulation-Capstone-Project-" class="github-link" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div>
+          <div class="pc-media" style="aspect-ratio:4/3">
+            <img
+              src="https://raw.githubusercontent.com/pranjalirangnekar/Mobile-Manipulation-Capstone-Project-/main/RESULT.gif"
+              alt="youBot Mobile Manipulation Demo in CoppeliaSim"
+              style="width:100%;height:100%;object-fit:cover"
+              onerror="this.parentElement.innerHTML='<div class=\'pc-media-label\'>Demo GIF, view at github.com/pranjalirangnekar/Mobile-Manipulation-Capstone-Project-</div>'"
+            >
+          </div>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:0.08em;margin-top:10px;text-align:center">youBot executing pick-and-place in CoppeliaSim</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="divider-line"></div></div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 02: COMPUTER VISION & PERCEPTION -->
+  <!-- ============================================================ -->
+  <section class="section">
+    <div class="section-header fade-in">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Computer Vision &amp; Perception</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- EINSTEINS VISION -->
+      <div class="project-card wide fade-in" style="--pc-accent:#c9a96e;--pc-border:rgba(201,169,110,0.3)" id="einsteins">
+        <div>
+          <div class="pc-cat">Scene Understanding · Autonomous Systems</div>
+          <h2 class="pc-title">EinsteinVision: Autonomous Scene Understanding Pipeline</h2>
+          <div class="result-badge" style="--pc-accent:#c9a96e;background:rgba(201,169,110,0.06);border-color:rgba(201,169,110,0.15)">🎯 6-module perception stack → live Blender 3D visualization</div>
+          <p class="pc-desc">Full autonomous driving perception system inspired by Tesla's visual pipeline. Takes a live video stream and runs six parallel perception modules, their outputs fused and rendered in real time as a 3D Blender scene showing depth, objects, lanes, poses, and motion in a unified dashboard.</p>
+          <ul class="pc-highlights">
+            <li><strong>Monocular Depth (MiDaS):</strong> Zero-shot depth estimation from single frames; depth maps assign 3D coordinates to detected objects and provide scene-level depth context in Blender.</li>
+            <li><strong>Lane & Traffic Signal Detection (Mask R-CNN + HSV):</strong> Instance segmentation for lane boundaries; ISS/HSV color thresholding classifies traffic signal state (red / yellow / green) per frame.</li>
+            <li><strong>Open-World Object Detection (DETiC + YOLOv11):</strong> DETiC detects 27,000+ object classes using image-level supervision; YOLO3D lifts detections to full 3D bounding boxes using scene geometry.</li>
+            <li><strong>Pedestrian Pose Estimation (OSX + YOLOv11-pose):</strong> OSX recovers whole-body mesh from single images; YOLOv11-pose runs real-time multi-person keypoint detection.</li>
+            <li><strong>Optical Flow (RAFT):</strong> Recurrent all-pairs field transforms compute dense per-pixel motion vectors used for dynamic object segmentation and motion-based scene decomposition.</li>
+            <li><strong>Blender Rendering Pipeline (bpy):</strong> All perception outputs feed a Python-driven Blender scene that auto-renders 3D boxes, depth maps, lane overlays, and pose skeletons as a live autonomous visualization.</li>
+          </ul>
+        </div>
+        <div>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin-bottom:12px;background:#000;">
+            <iframe src="https://www.youtube.com/embed/ERN1D_J9S8Y" title="EinsteinVision Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;"></iframe>
+          </div>
+          <div class="pc-gallery pc-gallery-3">
+            <img src="images/einstein-v1.jpg" alt="EinsteinVision output 1">
+            <img src="images/einstein-v2.jpg" alt="EinsteinVision output 2">
+            <img src="images/einstein-v3.jpg" alt="EinsteinVision output 3">
+          </div>
+        </div>
+      </div>
+
+      <!-- DEEP AND UN-DEEP VIO -->
+      <div class="project-card wide fade-in" style="--pc-accent:#6db8a4;--pc-border:rgba(109,184,164,0.3)">
+        <div>
+          <div class="pc-cat">Visual-Inertial Odometry · Deep Learning</div>
+          <h2 class="pc-title">Deep and Un-Deep VIO: Learning-Based Visual-Inertial Odometry</h2>
+          <div class="result-badge" style="--pc-accent:#6db8a4;background:rgba(109,184,164,0.06);border-color:rgba(109,184,164,0.15)">🔬 Supervised vs. self-supervised VIO: comparative study</div>
+          <p class="pc-desc">A comparative study of deep learning approaches to Visual-Inertial Odometry (VIO), estimating a robot's 6-DOF pose from fused camera and IMU data without GPS. Two architectures implemented and evaluated against classical filter-based methods.</p>
+          <ul class="pc-highlights">
+            <li><strong>Supervised Deep VIO:</strong> End-to-end network predicts relative 6-DOF camera pose from sequential image pairs fused with IMU pre-integrated measurements via a learned cross-modal fusion module.</li>
+            <li><strong>Self-Supervised (Un-Deep VIO):</strong> Unsupervised approach using photometric consistency and stereo geometric constraints as the training signal, with no ground-truth pose labels required during training.</li>
+            <li>Trajectory estimation accuracy assessed via ATE (Absolute Trajectory Error) and RPE (Relative Pose Error), benchmarked against IMU-only and classical filter-based baselines.</li>
+            <li>Comparative analysis of generalization ability, data efficiency, and pose accuracy across supervised and unsupervised training regimes on standard benchmark sequences.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="vid-player-wrap" style="margin-bottom:12px" id="vp-vio">
+            <video preload="metadata" muted>
+              <source src="videos/deep-vio.mp4" type="video/mp4">
+            </video>
+            <div class="vid-controls">
+              <button class="vid-btn vid-play" title="Play / Pause">▶</button>
+              <input type="range" class="vid-progress" value="0" min="0" max="100" step="0.1">
+              <span class="vid-time">0:00 / 0:00</span>
+              <select class="vid-speed" title="Playback speed">
+                <option value="0.5">0.5×</option>
+                <option value="1" selected>1×</option>
+                <option value="1.5">1.5×</option>
+                <option value="2">2×</option>
+              </select>
+            </div>
+          </div>
+          <div class="pc-gallery">
+            <img src="images/deep-vio-1.png" alt="Deep VIO trajectory estimation result">
+            <img src="images/deep-vio-2.png" alt="Un-Deep VIO self-supervised result">
+          </div>
+        </div>
+      </div>
+
+      <!-- ALOHOMORA -->
+      <div class="project-card fade-in" style="--pc-accent:#a778c8;--pc-border:rgba(167,120,200,0.3)">
+          <div class="pc-cat">Classical CV + Deep Learning</div>
+          <h2 class="pc-title">Alohomora: Boundary Detection &amp; Image Classification</h2>
+          <p class="pc-desc">Two-phase computer vision project. Phase 1 builds a pb-lite boundary detector from scratch using custom filter banks and gradient maps, outperforming Sobel and Canny baselines. Phase 2 trains CNN classifiers on CIFAR-10, progressively improving from BasicCNN to ResNet-level accuracy.</p>
+          <ul class="pc-highlights">
+            <li><strong>Filter Banks (Phase 1):</strong> Implemented DoG (Difference of Gaussians), LM (Leung-Malik), and Gabor filter banks from scratch: 48 filters across multiple scales and orientations capturing texture, edge, and frequency structure.</li>
+            <li><strong>Texture / Brightness / Color Maps:</strong> T, B, and C maps generated by K-means clustering of filter responses, producing compact local descriptors of image structure fed into the boundary pipeline.</li>
+            <li><strong>pb-lite Boundary Detection:</strong> Half-disc gradient masks on T/B/C maps compute χ² distances; weighted combination with Sobel/Canny produces boundaries that better preserve semantically meaningful edges.</li>
+            <li><strong>CNN Classification (Phase 2):</strong> Progressive architecture improvements on CIFAR-10: BasicCNN (~62%) to ImprovedCNN with batch norm, dropout, and augmentation (~75%) to ResNet achieving ~82% test accuracy.</li>
+          </ul>
+          <div class="github-strip">
+            <a href="https://github.com/pranjalirangnekar/Alohomora" class="github-link" target="_blank">View on GitHub</a>
+          </div>
+      </div>
+
+      <!-- MY AUTO PANO -->
+      <div class="project-card fade-in" style="--pc-accent:#4f8ef7;--pc-border:rgba(79,142,247,0.3)">
+          <div class="pc-cat">Panorama Stitching · Homography</div>
+          <h2 class="pc-title">MyAutoPano: Classical &amp; Deep Learning Panorama Stitching</h2>
+          <p class="pc-desc">End-to-end panorama stitching system implemented in two approaches: a classical feature-matching pipeline and a deep learning homography estimation pipeline. Both stitch overlapping images into seamless wide-angle panoramas.</p>
+          <ul class="pc-highlights">
+            <li><strong>Corner Detection (ANMS):</strong> Adaptive Non-Maximal Suppression selects spatially well-distributed strong corners, avoiding clustering that degrades feature matching quality.</li>
+            <li><strong>Feature Matching &amp; RANSAC:</strong> SSD-based descriptor matching with ratio test; RANSAC robustly estimates the homography matrix while rejecting outlier matches.</li>
+            <li><strong>Image Warping &amp; Blending:</strong> Cylindrical/planar blending produces seamless seams on both 2-image and multi-image sets.</li>
+            <li><strong>Deep Learning Homography (Supervised):</strong> Spatial Transformer Network trained to directly regress the 4-point homography end-to-end.</li>
+            <li><strong>Unsupervised Deep Approach:</strong> Photometric consistency as training signal, with no ground-truth homography labels required.</li>
+          </ul>
+      </div>
+
+
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="divider-line"></div></div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 03: THESIS -->
+  <!-- ============================================================ -->
+  <section class="section">
+    <div class="section-header fade-in">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Master's Thesis</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects-grid">
+      <a href="thesis.html" class="project-card wide fade-in" style="--pc-accent:#a78bfa;--pc-border:rgba(167,139,250,0.3);text-decoration:none;color:inherit;display:grid">
+        <div>
+          <div class="pc-cat">Medical Robotics · IROS 2026 Under Review</div>
+          <h2 class="pc-title">Anatomy-Specific Guidewire Personalization for Neuroendovascular Navigation</h2>
+          <div class="result-badge" style="--pc-accent:#a78bfa;background:rgba(167,139,250,0.06);border-color:rgba(167,139,250,0.18)">📄 Paper under review at IROS 2026</div>
+          <p class="pc-desc">Patient-specific optimization of guidewire stiffness and shape profiles for neuroendovascular navigation through tortuous Internal Carotid Artery geometries. Combines physics-based simulation with genetic algorithms and real hardware validation.</p>
+          <ul class="pc-highlights">
+            <li><strong>Anatomy Classification:</strong> 100-patient TOF-MRA dataset processed with VMTK to extract ICA centerlines and surface meshes, classified by tortuosity and curvature severity into patient-specific groups.</li>
+            <li><strong>Physics Simulation (SOFA Framework):</strong> BeamAdapter plugin models guidewire-vessel contact mechanics and deformable body dynamics for each patient anatomy.</li>
+            <li><strong>Genetic Algorithm Optimization:</strong> Iterative optimization of guidewire stiffness and pre-shaped tip profiles to minimize navigation difficulty metrics per anatomy class.</li>
+            <li><strong>Benchtop Validation:</strong> Optimized guidewire configurations tested on anatomical phantoms using a custom robotic actuator with fluoroscopic tracking for real-world measurement of tip deflection and contact force.</li>
+            <li><strong>Surgical Replication:</strong> Shaped guidewire profiles validated to match the technique of an experienced surgeon, confirming clinical relevance of the optimized designs.</li>
+          </ul>
+          <div class="github-strip">
+            <span class="github-link" style="pointer-events:none">Read full thesis page →</span>
+          </div>
+        </div>
+        <div>
+          <div style="background:var(--surface2);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:28px;height:100%;display:flex;flex-direction:column;justify-content:center;gap:18px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px">Research Pipeline</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="background:var(--surface);border:1px solid rgba(167,139,250,0.25);border-left:3px solid #a78bfa;border-radius:4px;padding:12px 16px">
+                <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px">Patient Segmentation</div>
+                <div style="font-size:12px;color:var(--text-dim)">TOF-MRA · VMTK · PyVista · ICA geometry extraction</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid rgba(167,139,250,0.25);border-left:3px solid #a78bfa;border-radius:4px;padding:12px 16px">
+                <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px">Physics Simulation</div>
+                <div style="font-size:12px;color:var(--text-dim)">SOFA Framework · BeamAdapter · contact mechanics</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid rgba(167,139,250,0.25);border-left:3px solid #a78bfa;border-radius:4px;padding:12px 16px">
+                <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px">Optimization</div>
+                <div style="font-size:12px;color:var(--text-dim)">Genetic algorithm · stiffness + shape profile tuning</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid rgba(167,139,250,0.25);border-left:3px solid #a78bfa;border-radius:4px;padding:12px 16px">
+                <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px">Hardware Validation</div>
+                <div style="font-size:12px;color:var(--text-dim)">Anatomical phantoms · fluoroscopic tracking · surgeon comparison</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 Pranjali Rangnekar</div>
+  <div class="footer-links">
+    <a href="https://github.com/pranjalirangnekar" class="footer-link" target="_blank">GitHub</a>
+    <a href="#" class="footer-link">LinkedIn</a>
+    <a href="mailto:prangnekar@wpi.edu" class="footer-link">Email</a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // ---- CUSTOM VIDEO PLAYERS ----
+  document.querySelectorAll('.vid-player-wrap').forEach(wrap => {
+    const video   = wrap.querySelector('video');
+    const playBtn = wrap.querySelector('.vid-play');
+    const bar     = wrap.querySelector('.vid-progress');
+    const timer   = wrap.querySelector('.vid-time');
+    const speed   = wrap.querySelector('.vid-speed');
+
+    function fmt(s) {
+      const m = Math.floor(s / 60);
+      return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+    }
+
+    playBtn.addEventListener('click', () => {
+      if (video.paused) { video.play(); playBtn.textContent = '⏸'; }
+      else              { video.pause(); playBtn.textContent = '▶'; }
+    });
+
+    video.addEventListener('timeupdate', () => {
+      if (!video.duration) return;
+      bar.value = (video.currentTime / video.duration) * 100;
+      timer.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
+    });
+
+    video.addEventListener('loadedmetadata', () => {
+      timer.textContent = '0:00 / ' + fmt(video.duration);
+    });
+
+    bar.addEventListener('input', () => {
+      if (video.duration) video.currentTime = (bar.value / 100) * video.duration;
+    });
+
+    speed.addEventListener('change', () => {
+      video.playbackRate = parseFloat(speed.value);
+    });
+
+    video.addEventListener('ended', () => { playBtn.textContent = '▶'; });
+  });
+</script>
+</body>
+</html>

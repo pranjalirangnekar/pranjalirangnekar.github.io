@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pranjali Rangnekar | Robotics Engineer</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 60px 80px;
+    gap: 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.85;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); opacity: 0.7; }
+  .hero-name {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: clamp(44px, 5.5vw, 74px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 10px;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+  .hero-name .grad {
+    display: block;
+    color: var(--accent);
+  }
+  .hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+  .hero-bio {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(230,237,243,0.72);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 34px;
+    animation: fadeUp 0.8s ease 0.8s both;
+  }
+  .hero-bio strong { color: var(--text); font-weight: 500; }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s ease 1.0s both;
+  }
+  .hero-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 5px 13px;
+    border: 1px solid;
+    border-radius: 4px;
+    letter-spacing: 0.01em;
+    transition: all 0.2s;
+  }
+  .hero-tag:hover { background: rgba(255,255,255,0.04); transform: translateY(-1px); }
+  .hero-tag-blue  { border-color: rgba(79,142,247,0.3);   color: var(--accent); }
+  .hero-tag-red   { border-color: rgba(201,169,110,0.3);  color: var(--accent2); }
+  .hero-tag-green { border-color: rgba(109,184,164,0.3);  color: var(--accent3); }
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    animation: fadeUp 0.8s ease 1.2s both;
+    align-items: flex-start;
+  }
+  .btn-dropdown { position: relative; }
+  .btn-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    min-width: 180px;
+    z-index: 50;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+  }
+  .btn-dropdown:hover .btn-dropdown-menu,
+  .btn-dropdown-menu:hover { display: block; }
+  .btn-dropdown-menu a {
+    display: block;
+    padding: 12px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .btn-dropdown-menu a:last-child { border-bottom: none; }
+  .btn-dropdown-menu a:hover { background: rgba(79,142,247,0.08); color: var(--text); }
+  .btn-dropdown-menu a span {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  /* ---- PROFILE CARD ---- */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    animation: fadeIn 1s ease 0.6s both;
+  }
+  .profile-card {
+    width: 100%;
+    max-width: 360px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+    border-radius: 8px;
+  }
+  .profile-photo {
+    width: 100%;
+    height: 200px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .profile-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .profile-logos {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .profile-logos img {
+    height: 22px;
+    width: auto;
+    max-width: 80px;
+    object-fit: contain;
+    opacity: 0.7;
+    filter: grayscale(20%);
+    transition: opacity 0.2s;
+  }
+  .profile-logos img:hover { opacity: 1; }
+  .profile-name { font-family: 'Instrument Sans', sans-serif; font-size: 19px; font-weight: 600; margin-bottom: 4px; }
+  .profile-role { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--accent); letter-spacing: 0.03em; margin-bottom: 22px; opacity: 0.9; }
+  .profile-details { display: flex; flex-direction: column; gap: 11px; }
+  .profile-detail { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; color: rgba(230,237,243,0.65); }
+  .detail-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--accent);
+    background: rgba(79,142,247,0.08);
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+  }
+  .profile-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+  .profile-links a {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    flex: 1;
+    text-align: center;
+    transition: all 0.2s;
+    border-radius: 4px;
+  }
+  .profile-links a:hover { color: var(--text); border-color: rgba(79,142,247,0.35); background: rgba(79,142,247,0.05); }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    max-width: 360px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .stat { padding: 16px 10px; text-align: center; border-right: 1px solid var(--border); }
+  .stat:last-child { border-right: none; }
+  .stat-n { font-family: 'Instrument Sans', sans-serif; font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 5px; }
+  .stat-l { font-family: 'Inter', sans-serif; font-size: 10px; color: var(--text-dim); letter-spacing: 0.03em; line-height: 1.4; }
+
+  /* ---- SPECIALIZATIONS ---- */
+  .spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .spec-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px 26px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .spec-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--sc-accent, var(--accent));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .spec-card:hover { border-color: rgba(79,142,247,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+  .spec-card:hover::before { opacity: 1; }
+  .spec-bg-num {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--sc-accent, var(--accent));
+    opacity: 0.06;
+    position: absolute;
+    top: 14px; right: 18px;
+    line-height: 1;
+  }
+  .spec-icon { font-size: 22px; margin-bottom: 14px; display: block; }
+  .spec-title { font-family: 'Instrument Sans', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+  .spec-desc { font-size: 13px; color: var(--text-muted); line-height: 1.75; font-weight: 300; }
+
+  /* ---- PROJECTS PREVIEW ---- */
+  .projects-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .proj-preview {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 26px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.3s;
+    position: relative;
+    border-radius: 8px;
+  }
+  .proj-preview:hover { border-color: rgba(79,142,247,0.3); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+  .proj-cat { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--pp-color, var(--accent)); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; opacity: 0.85; }
+  .proj-title { font-family: 'Instrument Sans', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
+  .proj-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 18px; font-weight: 300; }
+  .proj-arrow { position: absolute; top: 18px; right: 18px; opacity: 0.2; color: var(--pp-color, var(--accent)); font-size: 14px; transition: all 0.2s; }
+  .proj-preview:hover .proj-arrow { opacity: 0.8; transform: translate(2px, -2px); }
+
+  @keyframes fadeUp  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .hero-right { display: none; }
+    .spec-grid { grid-template-columns: 1fr; }
+    .projects-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">PR</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="cv-projects.html">Projects</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="hardware.html">Skills</a></li>
+    <li><a href="mailto:prangnekar@wpi.edu">Contact</a></li>
+  </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    Open to opportunities
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Robotics Engineer &amp; Researcher</div>
+    <h1 class="hero-name">
+      Pranjali
+      <span class="grad">Rangnekar</span>
+    </h1>
+    <div class="hero-subtitle">M.S. Robotics Engineering &nbsp;·&nbsp; WPI &nbsp;·&nbsp; Class of 2026</div>
+    <p class="hero-bio">
+      I build robots that <strong>navigate the human body</strong>, systems that <strong>see and understand</strong> the physical world, and pipelines that take ideas from simulation to <strong>real hardware</strong>.
+    </p>
+    <div class="hero-cta">
+      <a href="cv-projects.html" class="btn btn-primary">View My Work →</a>
+      <a href="mailto:prangnekar@wpi.edu" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="profile-card">
+      <div class="profile-photo">
+        <img src="images/profile.jpeg" alt="Pranjali Rangnekar">
+      </div>
+      <div class="profile-name">Pranjali Rangnekar</div>
+      <div class="profile-role">Robotics Engineer &nbsp;·&nbsp; Researcher</div>
+      <div class="profile-details">
+        <div class="profile-detail"><span class="detail-tag">EDU</span>M.S. Robotics Engineering, WPI, May 2026</div>
+        <div class="profile-detail"><span class="detail-tag">NOW</span>Robotics Engineering Intern @ Miral Intel</div>
+        <div class="profile-detail"><span class="detail-tag">EMAIL</span>prangnekar@wpi.edu</div>
+      </div>
+      <div class="profile-links">
+        <a href="https://github.com/pranjalirangnekar" target="_blank">GitHub</a>
+        <a href="#" target="_blank">LinkedIn</a>
+        <a href="#">Resume ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="divider-line"></div></div>
+
+<!-- WHAT I DO -->
+<section class="section">
+  <div class="section-header fade-in">
+    <span class="section-num">01</span>
+    <h2 class="section-title">What I Do</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="spec-grid">
+    <div class="spec-card fade-in" style="--sc-accent:#6db8a4">
+      <span class="spec-bg-num">01</span>
+      <span class="spec-icon">⚙️</span>
+      <div class="spec-title" style="color:var(--accent3)">Full-Stack Robotics</div>
+      <p class="spec-desc">Sensor fusion, motion planning, ROS2 pipelines, and the full stack from hardware integration to operator dashboards. Multimodal systems with LiDAR, thermal, IMU, and depth cameras, deployed on real robots and shipped as production services.</p>
+    </div>
+    <div class="spec-card fade-in" style="--sc-accent:#c9a96e">
+      <span class="spec-bg-num">02</span>
+      <span class="spec-icon">👁️</span>
+      <div class="spec-title" style="color:var(--accent2)">Computer Vision</div>
+      <p class="spec-desc">End-to-end CV pipelines: defect detection on aerial imagery, instance segmentation for robotic manipulation, medical image segmentation on MRA data, and scene understanding for autonomous systems, from custom datasets to TensorRT deployment.</p>
+    </div>
+    <div class="spec-card fade-in" style="--sc-accent:#4f8ef7">
+      <span class="spec-bg-num">03</span>
+      <span class="spec-icon">🩺</span>
+      <div class="spec-title" style="color:var(--accent)">Medical Robotics</div>
+      <p class="spec-desc">Physics-based surgical simulation, patient-specific device optimization, and sim-to-real validation on hardware. Thesis on endovascular tool navigation using SOFA Framework + genetic algorithms, validated with fluoroscopic tracking on a custom testbed.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="divider-line"></div></div>
+
+<!-- QUICK EX STRIP -->
+<section class="section">
+  <div class="section-header fade-in">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+    <a href="experience.html" class="btn btn-outline" style="margin-left:auto;white-space:nowrap">Full Details →</a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+
+    <div class="card fade-in" style="border-color:rgba(79,142,247,0.2)">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <img src="images/mira_intel_logo.png" alt="Miral Intel" style="height:28px;width:auto;max-width:72px;object-fit:contain;opacity:0.85">
+      </div>
+      <div style="font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px">Miral Intel</div>
+      <div style="font-family:'Inter',sans-serif;font-size:12px;color:var(--accent);margin-bottom:6px;font-weight:500">Robotics Engineering Intern</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:.08em">Jan 2025 to Present</div>
+    </div>
+
+    <div class="card fade-in" style="border-color:rgba(201,169,110,0.2)">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <img src="images/Dyrt_Labs_Inc_logo.png" alt="Dyrt Labs" style="height:28px;width:auto;max-width:72px;object-fit:contain;opacity:0.85">
+      </div>
+      <div style="font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px">Dyrt Labs Inc.</div>
+      <div style="font-family:'Inter',sans-serif;font-size:12px;color:var(--accent2);margin-bottom:6px;font-weight:500">Robotics CV/AI Intern</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:.08em">Jun to Dec 2025</div>
+    </div>
+
+    <div class="card fade-in" style="border-color:rgba(109,184,164,0.2)">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div style="height:28px;width:28px;background:rgba(109,184,164,0.1);border:1px solid rgba(109,184,164,0.2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Instrument Sans',sans-serif;font-size:10px;font-weight:600;color:#6db8a4">DR</div>
+      </div>
+      <div style="font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px">Dazzle Robotics</div>
+      <div style="font-family:'Inter',sans-serif;font-size:12px;color:var(--accent3);margin-bottom:6px;font-weight:500">AI-ML Engineer</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:.08em">Oct 2023 to Jun 2024</div>
+    </div>
+
+    <div class="card fade-in" style="border-color:rgba(167,139,250,0.2)">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <img src="images/lareg_corp_logo.jpg" alt="Lareg Corp" style="height:28px;width:auto;max-width:72px;object-fit:contain;opacity:0.85">
+      </div>
+      <div style="font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px">Lareg Corp</div>
+      <div style="font-family:'Inter',sans-serif;font-size:12px;color:var(--accent4);margin-bottom:6px;font-weight:500">ML / Regulatory Intern</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:.08em">Fall 2024</div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">© 2026 Pranjali Rangnekar</div>
+  <div class="footer-links">
+    <a href="https://github.com/pranjalirangnekar" class="footer-link" target="_blank">GitHub</a>
+    <a href="#" class="footer-link">LinkedIn</a>
+    <a href="mailto:prangnekar@wpi.edu" class="footer-link">Email</a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

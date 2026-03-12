@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills | Pranjali Rangnekar</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ---- SKILL ICON GRID ---- */
+  .skill-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .skill-icon-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 16px 20px;
+    text-align: center;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    cursor: default;
+  }
+  .skill-icon-card:hover {
+    border-color: var(--sic-color, rgba(79,142,247,0.35));
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.22);
+  }
+  .sic-icon {
+    height: 44px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sic-icon img {
+    max-height: 40px;
+    max-width: 82px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.88;
+    filter: brightness(1.05) saturate(0.9);
+    transition: opacity 0.2s, filter 0.2s;
+  }
+  .skill-icon-card:hover .sic-icon img {
+    opacity: 1;
+    filter: brightness(1.1) saturate(1);
+  }
+  .sic-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1.45;
+    letter-spacing: 0.01em;
+  }
+
+  /* ---- STACK LAYERS ---- */
+  .stack-layers { display: flex; flex-direction: column; gap: 5px; }
+  .stack-layer {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+    gap: 16px;
+  }
+  .layer-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .layer-bar {
+    height: 40px;
+    background: var(--surface);
+    border: 1px solid var(--sl-color, var(--border));
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  .layer-bar::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--sl-color, var(--accent));
+  }
+  .layer-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sl-color, var(--text-muted));
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+  }
+
+  /* ---- INTEGRATION CARDS ---- */
+  .integration-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .int-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 32px;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative;
+  }
+  .int-card:hover {
+    border-color: rgba(79,142,247,0.25);
+    transform: translateY(-2px);
+  }
+  .int-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--ic-color, var(--accent));
+    border-radius: 8px 8px 0 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+    opacity: 0.7;
+  }
+  .int-card:hover::before { transform: scaleX(1); }
+  .int-cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ic-color, var(--accent));
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .int-cat::before { content: ''; width: 14px; height: 1px; background: var(--ic-color, var(--accent)); opacity: 0.6; }
+  .int-title {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .int-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.72;
+    font-weight: 300;
+  }
+  .int-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .int-link::before { content: '↗'; font-size: 12px; }
+  .int-link:hover { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .skill-icon-grid { grid-template-columns: repeat(2, 1fr); }
+    .stack-layer { grid-template-columns: 80px 1fr; }
+    .integration-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">PR</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cv-projects.html">Projects</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="hardware.html" class="active">Skills</a></li>
+    <li><a href="mailto:prangnekar@wpi.edu">Contact</a></li>
+  </ul>
+  <div class="nav-status"><div class="status-dot"></div>Open to opportunities</div>
+</nav>
+
+<div class="page-content">
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Tools &amp; Systems</div>
+    <h1 class="page-hero-title">Hardware &amp; Software</h1>
+    <p class="page-hero-sub">The tools, platforms, and languages I work with, from simulation environments and ML frameworks to real robot hardware and full-stack services.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SOFTWARE -->
+  <!-- ============================================================ -->
+  <section class="section" style="padding-top:0">
+    <div class="section-header fade-in">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Software &amp; Tools</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skill-icon-grid">
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(79,142,247,0.35)">
+        <span class="sic-icon"><img src="logo/ISO_C++_Logo.svg.png" alt="C++"></span>
+        <div class="sic-label">C, C++, C#, CUDA</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(109,184,164,0.35)">
+        <span class="sic-icon">
+          <svg viewBox="0 0 44 44" width="44" height="44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="17" height="17" rx="4" fill="#3776AB"/>
+            <rect x="23" y="4" width="17" height="17" rx="4" fill="#FFD43B"/>
+            <rect x="4" y="23" width="17" height="17" rx="4" fill="#FFD43B"/>
+            <rect x="23" y="23" width="17" height="17" rx="4" fill="#3776AB"/>
+            <text x="7.5" y="17" font-family="monospace" font-weight="700" font-size="10" fill="white">PY</text>
+            <text x="26" y="17" font-family="monospace" font-weight="700" font-size="10" fill="#1a1a1a">ML</text>
+            <text x="8" y="36" font-family="monospace" font-weight="700" font-size="10" fill="#1a1a1a">MA</text>
+            <text x="27.5" y="36" font-family="monospace" font-weight="700" font-size="10" fill="white">R</text>
+          </svg>
+        </span>
+        <div class="sic-label">Python, MATLAB, R</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(201,169,110,0.35)">
+        <span class="sic-icon"><img src="logo/Arduino_Logo.svg.png" alt="Arduino"></span>
+        <div class="sic-label">Arduino, Raspberry Pi, ESP8266</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(79,142,247,0.35)">
+        <span class="sic-icon"><img src="logo/opencv.png" alt="OpenCV"></span>
+        <div class="sic-label">OpenCV, TensorFlow, PyTorch</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(109,184,164,0.35)">
+        <span class="sic-icon"><img src="logo/Logo_Blender.svg.png" alt="Blender"></span>
+        <div class="sic-label">Solidworks, AutoCAD, Blender</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(201,169,110,0.35)">
+        <span class="sic-icon"><img src="logo/ros-logo.png" alt="ROS"></span>
+        <div class="sic-label">ROS, ROS2, Gazebo</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(167,139,250,0.35)">
+        <span class="sic-icon"><img src="logo/nvidia-issac-logo.jpg" alt="NVIDIA Isaac"></span>
+        <div class="sic-label">Isaac Sim, Isaac Lab</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(79,142,247,0.35)">
+        <span class="sic-icon"><img src="logo/sofa_sim.png" alt="SOFA Framework"></span>
+        <div class="sic-label">SOFA Framework</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(109,184,164,0.35)">
+        <span class="sic-icon"><img src="logo/move-it.jpg" alt="MoveIt2"></span>
+        <div class="sic-label">OMPL, MoveIt2, PyBullet</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(201,169,110,0.35)">
+        <span class="sic-icon"><img src="logo/tensor-rt.png" alt="TensorRT"></span>
+        <div class="sic-label">YOLO, TensorRT, ONNX</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(167,139,250,0.35)">
+        <span class="sic-icon"><img src="logo/docker.jpg" alt="Docker"></span>
+        <div class="sic-label">Docker, Kubernetes, FastAPI</div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(79,142,247,0.35)">
+        <span class="sic-icon"><img src="logo/react-logo.png" alt="React"></span>
+        <div class="sic-label">React.js, PostgreSQL, REST APIs</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="divider-line"></div></div>
+
+  <!-- ============================================================ -->
+  <!-- HARDWARE -->
+  <!-- ============================================================ -->
+  <section class="section">
+    <div class="section-header fade-in">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Hardware I've Worked With</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skill-icon-grid">
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(201,169,110,0.35)">
+        <span class="sic-icon"><img src="logo/xarm.jpg" alt="xArm 6"></span>
+        <div class="sic-label">xArm 6<br><span style="font-size:10px;opacity:0.6">6-DOF Robot Arm</span></div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(79,142,247,0.35)">
+        <span class="sic-icon"><img src="logo/RealSense-Logo.jpg" alt="Intel RealSense"></span>
+        <div class="sic-label">RealSense D435<br><span style="font-size:10px;opacity:0.6">Depth Camera</span></div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(109,184,164,0.35)">
+        <span class="sic-icon"><img src="logo/tobii-logo.png" alt="Tobii"></span>
+        <div class="sic-label">Tobii Pro Glasses 3<br><span style="font-size:10px;opacity:0.6">Eye Tracker</span></div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(201,169,110,0.35)">
+        <span class="sic-icon"><img src="logo/drone.png" alt="Drone"></span>
+        <div class="sic-label">Inspection Drone<br><span style="font-size:10px;opacity:0.6">Aerial Platform</span></div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(167,139,250,0.35)">
+        <span class="sic-icon"><img src="logo/fetch.png" alt="Fetch Robot"></span>
+        <div class="sic-label">Fetch Robot<br><span style="font-size:10px;opacity:0.6">Mobile Manipulator</span></div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(167,139,250,0.35)">
+        <span class="sic-icon">
+          <svg viewBox="0 0 44 44" width="44" height="44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="9" width="34" height="24" rx="3" stroke="#a78bfa" stroke-width="1.5" opacity="0.65"/>
+            <path d="M11 21 Q16 13 22 21 Q28 29 33 21" stroke="#a78bfa" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.95"/>
+            <circle cx="22" cy="21" r="2.5" fill="#a78bfa" opacity="0.85"/>
+            <rect x="17" y="33" width="10" height="2.5" rx="1.25" fill="#a78bfa" opacity="0.5"/>
+          </svg>
+        </span>
+        <div class="sic-label">Benchtop Actuator<br><span style="font-size:10px;opacity:0.6">Endovascular Testbed</span></div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(109,184,164,0.35)">
+        <span class="sic-icon"><img src="logo/raspberry-pi.png" alt="Raspberry Pi"></span>
+        <div class="sic-label">Raspberry Pi<br><span style="font-size:10px;opacity:0.6">Edge Compute</span></div>
+      </div>
+
+      <div class="skill-icon-card fade-in" style="--sic-color:rgba(201,169,110,0.35)">
+        <span class="sic-icon"><img src="logo/lidar.jpg" alt="LiDAR"></span>
+        <div class="sic-label">Thermal + LiDAR<br><span style="font-size:10px;opacity:0.6">Multimodal Sensors</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="divider-line"></div></div>
+
+  <!-- ============================================================ -->
+  <!-- FULL STACK -->
+  <!-- ============================================================ -->
+  <section class="section">
+    <div class="section-header fade-in">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Full-Stack Integration</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="stack-layers fade-in">
+      <div class="stack-layer">
+        <div class="layer-name">Frontend</div>
+        <div class="layer-bar" style="--sl-color:#4f8ef7">
+          <span class="layer-item">React.js</span>
+          <span class="layer-item">rosbridge WebSocket</span>
+          <span class="layer-item">Operator Dashboard</span>
+          <span class="layer-item">Live Camera Feed</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="layer-name">Backend</div>
+        <div class="layer-bar" style="--sl-color:#6db8a4">
+          <span class="layer-item">FastAPI</span>
+          <span class="layer-item">PostgreSQL</span>
+          <span class="layer-item">REST APIs</span>
+          <span class="layer-item">Docker / Kubernetes</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="layer-name">Middleware</div>
+        <div class="layer-bar" style="--sl-color:#c9a96e">
+          <span class="layer-item">ROS2</span>
+          <span class="layer-item">MoveIt2</span>
+          <span class="layer-item">rosbridge_suite</span>
+          <span class="layer-item">TF2</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="layer-name">Perception</div>
+        <div class="layer-bar" style="--sl-color:#a78bfa">
+          <span class="layer-item">YOLO / TensorRT</span>
+          <span class="layer-item">OpenCV</span>
+          <span class="layer-item">Point Cloud (PCL)</span>
+          <span class="layer-item">Kalman Filter</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="layer-name">Sensors</div>
+        <div class="layer-bar" style="--sl-color:#4f8ef7">
+          <span class="layer-item">RealSense D435</span>
+          <span class="layer-item">LiDAR</span>
+          <span class="layer-item">IMU</span>
+          <span class="layer-item">Thermal Camera</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="layer-name">Hardware</div>
+        <div class="layer-bar" style="--sl-color:#6db8a4">
+          <span class="layer-item">xArm 6</span>
+          <span class="layer-item">Fetch Robot</span>
+          <span class="layer-item">Inspection Drone</span>
+          <span class="layer-item">Benchtop Actuator</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="divider-line"></div></div>
+
+  <!-- ============================================================ -->
+  <!-- INTEGRATION PROJECTS -->
+  <!-- ============================================================ -->
+  <section class="section">
+    <div class="section-header fade-in">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Integration Work</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="integration-grid">
+
+      <div class="int-card fade-in" style="--ic-color:#6db8a4">
+        <div class="int-cat">HRI · Sensor Integration</div>
+        <div class="int-title">Gaze-Guided Robot Control with Tobii Pro Glasses 3</div>
+        <p class="int-desc">Real-time gaze data pipeline from wearable eye tracker into ROS2, with operator gaze rendered live onto robot camera imagery for human-in-the-loop supervision. Tobii Pro Glasses 3 stream ingested at 240Hz via the Glasses3 API, transformed through TF2 into robot-relevant coordinate frames, and bridged to a web operator dashboard via rosbridge WebSocket.</p>
+        <a href="https://github.com/pranjalirangnekar/Gaze-Guided-Robot-Control-ROS-Tobii-" target="_blank" class="int-link">View on GitHub</a>
+      </div>
+
+      <div class="int-card fade-in" style="--ic-color:#4f8ef7">
+        <div class="int-cat">Robot Arm · Depth Sensing</div>
+        <div class="int-title">xArm 6 + RealSense Waste Sorting</div>
+        <p class="int-desc">Full perception-to-grasp pipeline: RealSense D435 depth camera feeds 3D point clouds through PCL into xArm 6 pick-and-place via MoveIt2. YOLOv8 instance segmentation identifies objects on a live conveyor in real time. Camera-to-robot frame calibration for accurate 3D grasp target computation; Gazebo validated before hardware deployment.</p>
+      </div>
+
+      <div class="int-card fade-in" style="--ic-color:#c9a96e">
+        <div class="int-cat">Drone · Multimodal Sensors</div>
+        <div class="int-title">Drone Inspection: Sensor Fusion Stack</div>
+        <p class="int-desc">Multimodal inspection system fusing thermal camera, LiDAR, IMU, and environmental sensors for offshore wind turbine inspection. Kalman filter-based fusion over REST APIs provides robust localization in dynamic offshore conditions. Depth-aware defect localization maps anomalies to real-world 3D coordinates; full stack containerized in Docker with ROS2 data ingestion.</p>
+      </div>
+
+      <div class="int-card fade-in" style="--ic-color:#a78bfa">
+        <div class="int-cat">Medical · Custom Hardware</div>
+        <div class="int-title">Thesis Benchtop Testbed: Endovascular Validation</div>
+        <p class="int-desc">Used a benchtop robotic actuator to obtain real navigation results for optimized guidewire configurations. Shaped the guidewire through anatomical phantoms in the same way a surgeon would during a procedure, then validated that the optimized designs improved navigation accuracy. Fluoroscopic imaging tracked tip deflection and path fidelity across patient-specific anatomy models.</p>
+        <a href="thesis.html" class="int-link">See Thesis →</a>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 Pranjali Rangnekar</div>
+  <div class="footer-links">
+    <a href="https://github.com/pranjalirangnekar" class="footer-link" target="_blank">GitHub</a>
+    <a href="#" class="footer-link">LinkedIn</a>
+    <a href="mailto:prangnekar@wpi.edu" class="footer-link">Email</a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
