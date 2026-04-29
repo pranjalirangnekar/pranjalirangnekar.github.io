@@ -297,6 +297,7 @@
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="cv-projects.html">Projects</a></li>
+    <li><a href="thesis.html" class="active">Thesis</a></li>
     <li><a href="experience.html">Experience</a></li>
     <li><a href="hardware.html">Skills</a></li>
     <li><a href="mailto:prangnekar@wpi.edu">Contact</a></li>
@@ -309,24 +310,24 @@
   <!-- HERO -->
   <div class="thesis-hero">
     <div>
-      <div class="thesis-badge">IROS 2026 &mdash; Under Review</div>
+      <div class="thesis-badge">Successfully Defended</div>
       <h1 class="thesis-title">
-        Anatomy-Specific <span class="hl">Guidewire Personalization</span><br>
+        Patient-Aware <span class="hl">Medical Robotics Research</span><br>
         for Neuroendovascular Navigation
       </h1>
       <div class="thesis-meta">
         <div class="meta-item"><div class="meta-key">Institution</div><div class="meta-val">Worcester Polytechnic Institute</div></div>
         <div class="meta-item"><div class="meta-key">Program</div><div class="meta-val">M.S. Robotics Engineering</div></div>
-        <div class="meta-item"><div class="meta-key">Timeline</div><div class="meta-val">2025 to Present</div></div>
-        <div class="meta-item"><div class="meta-key">Status</div><div class="meta-val">In Progress · IROS 2026 Submitted</div></div>
+        <div class="meta-item"><div class="meta-key">Timeline</div><div class="meta-val">2025 to 2026</div></div>
+        <div class="meta-item"><div class="meta-key">Status</div><div class="meta-val">Successfully Defended</div></div>
       </div>
       <p class="thesis-abstract">
-        Endovascular tools are still designed for a generic patient — yet the internal carotid artery varies dramatically from person to person. This thesis builds a full pipeline: segment real patient anatomy from MRI data, simulate guidewire physics inside those geometries, optimize device parameters to each individual, and validate it all on physical hardware.
+        This thesis explored how medical robotics workflows can adapt to anatomical variation. It connected image-based anatomy preparation, physics simulation, and benchtop validation into a patient-aware research pipeline while keeping technical design details intentionally high level for public sharing.
       </p>
       <div class="tags-row">
         <span class="tag tag-accent">SOFA Framework</span>
         <span class="tag tag-accent">BeamAdapter</span>
-        <span class="tag tag-accent">Genetic Algorithm</span>
+        <span class="tag tag-accent">Optimization</span>
         <span class="tag tag-accent">TOF-MRA</span>
         <span class="tag tag-accent">VMTK</span>
         <span class="tag tag-red">Fluoroscopy</span>
@@ -341,18 +342,18 @@
       <div class="info-card">
         <div class="info-card-title">Key Contributions</div>
         <ul class="info-list">
-          <li><strong>100-patient anatomy dataset</strong> curated from open-source TOF-MRA data, fully segmented and classified</li>
-          <li><strong>Patient-specific SOFA simulations</strong> built from scratch with BeamAdapter for guidewire + catheter mechanics</li>
-          <li><strong>Genetic algorithm</strong> optimizing device tip parameters per patient geometry</li>
+          <li><strong>Anatomy preparation workflow</strong> for patient-aware simulation studies</li>
+          <li><strong>Physics simulation</strong> for evaluating navigation behavior in vascular geometry</li>
+          <li><strong>Optimization study</strong> for adapting device behavior across anatomy types</li>
           <li><strong>Hardware validation</strong> on custom benchtop robotic actuator with anatomical phantoms</li>
-          <li><strong>Fluoroscopic + camera tracking</strong> for sim-to-real ground truth measurement</li>
+          <li><strong>Imaging and camera tracking</strong> for experimental measurement</li>
         </ul>
       </div>
       <div class="info-card">
         <div class="info-card-title">Publication</div>
         <ul class="info-list">
           <li>IROS 2026 &mdash; Under Review</li>
-          <li>Anatomy-Specific Guidewire Personalization for Neuroendovascular Navigation</li>
+          <li>Patient-aware medical robotics research for neuroendovascular navigation</li>
           <li>2nd author (Tamhankar, <strong>Rangnekar</strong>, Pattiglio)</li>
         </ul>
       </div>
@@ -370,17 +371,17 @@
       <div class="phase" style="--p-color:#00d4ff">
         <div class="phase-dot">1</div>
         <div class="phase-title">Dataset Curation</div>
-        <p class="phase-desc">100-patient TOF-MRA. 3D Slicer segmentation, VMTK centerlines, tortuosity classification.</p>
+        <p class="phase-desc">MRA-derived vascular geometry preparation for patient-aware simulation.</p>
       </div>
       <div class="phase" style="--p-color:#ff3d6b">
         <div class="phase-dot">2</div>
         <div class="phase-title">SOFA Simulation</div>
-        <p class="phase-desc">Custom physics simulation built in SOFA + BeamAdapter for catheter/guidewire mechanics.</p>
+        <p class="phase-desc">Physics-based navigation studies in patient-aware vascular models.</p>
       </div>
       <div class="phase" style="--p-color:#39ff8a">
         <div class="phase-dot">3</div>
         <div class="phase-title">Optimization</div>
-        <p class="phase-desc">Genetic algorithm tunes tip geometry per patient. Fitness: navigation success + contact forces.</p>
+        <p class="phase-desc">Optimization workflow for adapting behavior across anatomical variation.</p>
       </div>
       <div class="phase" style="--p-color:#ffb800">
         <div class="phase-dot">4</div>
@@ -392,39 +393,37 @@
 
   <div class="section-divider"><div class="divider-line"></div></div>
 
-  <!-- DATASET SECTION -->
+  <!-- ANATOMY SECTION -->
   <section class="section">
     <div class="section-header fade-in">
       <span class="section-num">02</span>
-      <h2 class="section-title">The Dataset I Curated</h2>
+      <h2 class="section-title">Anatomy Preparation</h2>
       <div class="section-line"></div>
     </div>
 
     <div class="story-block fade-in">
       <div class="story-text">
         <div class="story-eyebrow">Medical Image Segmentation</div>
-        <h3 class="story-heading">100 Patients. Real Anatomy. Built From Scratch.</h3>
+        <h3 class="story-heading">Image-Based Geometry Preparation</h3>
         <div class="story-body">
-          <p>There was no off-the-shelf dataset for this problem, so the first step was building one. Starting from open-source <strong>TOF-MRA (Time-of-Flight MR Angiography)</strong> scans, each patient's vascular anatomy had to be manually worked through — loading volumes into <strong>3D Slicer</strong>, adjusting thresholds, correcting segmentation boundaries, and isolating the internal carotid artery from surrounding structures.</p>
-          <p>The ICA is notoriously difficult to segment cleanly — it twists, bifurcates, and varies in caliber across patients. Each case required careful review to produce a clean, usable geometry rather than just running an automated pipeline and hoping for the best.</p>
-          <p>From there, <strong>VMTK</strong> was used to extract centerlines and generate watertight surface meshes suitable for simulation — converting the raw segmentations into 3D models the SOFA simulator could actually load and interact with.</p>
+          <p>The first stage prepared medical imaging data into clean vascular geometries for simulation. The public version of this page keeps the processing details broad and focuses on the overall research workflow.</p>
+          <p>The goal was to create simulation-ready anatomy representations that could support patient-aware robotics experiments while remaining suitable for later benchtop validation.</p>
         </div>
       </div>
       <div>
         <div class="img-frame" style="margin-bottom: 12px;">
           <img src="thesis/slicer.png" alt="3D Slicer segmentation workflow">
-          <div class="img-caption">3D Slicer — ICA segmentation from TOF-MRA volume</div>
+          <div class="img-caption">Medical imaging workflow — vascular geometry preparation</div>
         </div>
       </div>
     </div>
 
     <div class="story-block reverse fade-in">
       <div class="story-text">
-        <div class="story-eyebrow">Anatomy Classification</div>
-        <h3 class="story-heading">Classifying Anatomies by Tortuosity</h3>
+        <div class="story-eyebrow">Anatomy Variation</div>
+        <h3 class="story-heading">Organizing Patient-Aware Cases</h3>
         <div class="story-body">
-          <p>Once segmented, each ICA was characterized by its <strong>tortuosity index and curvature severity</strong> — quantifying how twisted and challenging each anatomy actually is. This wasn't just a labeling exercise; the classification directly drives which patients receive which optimization targets.</p>
-          <p>The result is a <strong>100-patient benchmark</strong> spanning the full spectrum of ICA geometry, from relatively straight vessels to highly tortuous anatomies where standard devices routinely fail. This kind of systematic anatomy-specific dataset didn't exist before for this specific application.</p>
+          <p>The prepared geometries were organized to reflect meaningful anatomical variation. This allowed simulation and validation experiments to compare behavior across different patient-aware cases without exposing sensitive implementation details publicly.</p>
         </div>
       </div>
       <div>
@@ -438,8 +437,8 @@
     <div class="fade-in">
       <div class="story-eyebrow" style="margin-bottom: 16px;">Dataset Output</div>
       <div class="img-wide">
-        <img src="thesis/segmented anatomy.png" alt="Segmented anatomies across the 100-patient dataset">
-        <div class="img-caption" style="padding: 12px 20px;">Segmented anatomies — 100-patient ICA geometry benchmark spanning tortuosity spectrum</div>
+        <img src="thesis/segmented anatomy.png" alt="Segmented vascular anatomy examples">
+        <div class="img-caption" style="padding: 12px 20px;">Segmented anatomies — representative vascular geometry examples</div>
       </div>
     </div>
   </section>
@@ -459,12 +458,12 @@
         <img src="thesis/sofa logo.png" alt="SOFA Framework" class="sofa-logo">
         <div>
           <div class="story-eyebrow" style="margin-bottom: 6px;">Physics-Based Simulation</div>
-          <h3 class="story-heading" style="margin-bottom: 0;">SOFA Framework — Built From Scratch</h3>
+          <h3 class="story-heading" style="margin-bottom: 0;">Simulation Workflow</h3>
         </div>
       </div>
       <div class="story-body">
-        <p>The simulation environment was built entirely from the ground up inside the <strong>SOFA Framework</strong> using the <strong>BeamAdapter plugin</strong>. This involved setting up the full physics stack: beam mechanics for the guidewire's flexible body, contact and collision handling between the device and vessel wall, and tissue deformation to approximate real vascular compliance.</p>
-        <p>Each patient mesh from the dataset was loaded as the simulation environment, with the guidewire navigated through the vessel under realistic mechanical constraints. This gives a physics-grounded prediction of how a given device configuration will behave inside that specific patient's anatomy — before ever touching physical hardware.</p>
+        <p>The simulation environment studied navigation behavior inside patient-aware vascular models before selected experiments moved to hardware.</p>
+        <p>This public summary intentionally keeps the mechanics and configuration details high level.</p>
       </div>
     </div>
 
@@ -478,7 +477,7 @@
       <div>
         <div class="video-embed">
           <video src="thesis/C.mp4" autoplay muted loop playsinline style="width:100%;display:block;"></video>
-          <div class="video-embed-caption">SOFA simulation — guidewire navigating patient-specific vascular model</div>
+          <div class="video-embed-caption">Simulation study — navigation behavior in patient-aware geometry</div>
         </div>
       </div>
     </div>
@@ -498,15 +497,15 @@
       <div class="mention-card">
         <div class="mention-icon">🧬</div>
         <div>
-          <div class="mention-title">Genetic Algorithm Optimization</div>
-          <p class="mention-desc">A genetic algorithm tunes guidewire tip shape parameters — length, diameter, stiffness — per patient anatomy. The fitness function balances navigation success rate and contact forces, evolving the device geometry across generations toward the configuration best suited for each individual ICA.</p>
+          <div class="mention-title">Optimization Workflow</div>
+          <p class="mention-desc">An iterative optimization workflow explored how device behavior can be adapted across anatomical cases without exposing sensitive implementation details publicly.</p>
         </div>
       </div>
       <div class="mention-card">
         <div class="mention-icon">🔬</div>
         <div>
           <div class="mention-title">Hardware Validation</div>
-          <p class="mention-desc">Optimized configurations are tested on a custom benchtop robotic actuator with anatomical phantoms. Fluoroscopic imaging and camera tracking provide ground truth measurements of tip deflection and navigation success, confirming that simulation predictions hold up in reality.</p>
+          <p class="mention-desc">Selected experiments were evaluated on a custom benchtop robotic actuator with anatomical phantoms, using imaging and camera-based measurements for validation.</p>
         </div>
       </div>
     </div>
@@ -516,7 +515,7 @@
       <div class="story-eyebrow" style="margin-bottom: 16px;">Sim-to-Real Comparison</div>
       <div class="video-embed" style="max-width: 900px; margin: 0 auto;">
         <video src="thesis/Video Project.mp4" controls style="width:100%;display:block;"></video>
-        <div class="video-embed-caption">Side-by-side comparison — SOFA simulation prediction vs. physical hardware experiment</div>
+        <div class="video-embed-caption">Side-by-side comparison — simulation behavior vs. physical hardware experiment</div>
       </div>
     </div>
   </section>

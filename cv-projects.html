@@ -257,6 +257,7 @@
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="cv-projects.html" class="active">Projects</a></li>
+    <li><a href="thesis.html">Thesis</a></li>
     <li><a href="experience.html">Experience</a></li>
     <li><a href="hardware.html">Skills</a></li>
     <li><a href="mailto:prangnekar@wpi.edu">Contact</a></li>
@@ -351,11 +352,54 @@
   <div class="section-divider"><div class="divider-line"></div></div>
 
   <!-- ============================================================ -->
-  <!-- SECTION 02: COMPUTER VISION & PERCEPTION -->
+  <!-- SECTION 02: PHYSICAL AI -->
   <!-- ============================================================ -->
   <section class="section">
     <div class="section-header fade-in">
       <span class="section-num">02</span>
+      <h2 class="section-title">Physical AI</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card wide fade-in" style="--pc-accent:#6db8a4;--pc-border:rgba(109,184,164,0.3)" id="physical-ai">
+        <div>
+          <div class="pc-cat">Physical AI · Robot Learning</div>
+          <h2 class="pc-title">Attribute-Guided Robot Pick-and-Place</h2>
+          <div class="result-badge" style="--pc-accent:#6db8a4;background:rgba(109,184,164,0.06);border-color:rgba(109,184,164,0.15)">New project · video demos included</div>
+          <p class="pc-desc">Robot learning workflow that connects object attributes, scene understanding, and manipulation behavior in a physical task loop.</p>
+          <ul class="pc-highlights">
+            <li>Built an end-to-end demo loop from scene input to robot manipulation output.</li>
+            <li>Used object attributes to guide pick-and-place decisions in a physical setup.</li>
+            <li>Focused on interpretable robot behavior, repeatable demos, and fast iteration.</li>
+          </ul>
+          <div class="tags-row">
+            <span class="tag tag-green">Physical AI</span>
+            <span class="tag tag-green">Robot Learning</span>
+            <span class="tag tag-green">Manipulation</span>
+            <span class="tag tag-green">Perception</span>
+          </div>
+        </div>
+        <div>
+          <div class="pc-media" style="margin-bottom:12px">
+            <video src="videos/overview_demo.mp4" controls muted playsinline preload="metadata"></video>
+          </div>
+          <div class="pc-media">
+            <video src="videos/attribute_pick_place.mp4" controls muted playsinline preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="divider-line"></div></div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 03: COMPUTER VISION & PERCEPTION -->
+  <!-- ============================================================ -->
+  <section class="section">
+    <div class="section-header fade-in">
+      <span class="section-num">03</span>
       <h2 class="section-title">Computer Vision &amp; Perception</h2>
       <div class="section-line"></div>
     </div>
@@ -461,64 +505,6 @@
 
     </div>
   </section>
-
-  <div class="section-divider"><div class="divider-line"></div></div>
-
-  <!-- ============================================================ -->
-  <!-- SECTION 03: THESIS -->
-  <!-- ============================================================ -->
-  <section class="section">
-    <div class="section-header fade-in">
-      <span class="section-num">03</span>
-      <h2 class="section-title">Master's Thesis</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="projects-grid">
-      <a href="thesis.html" class="project-card wide fade-in" style="--pc-accent:#a78bfa;--pc-border:rgba(167,139,250,0.3);text-decoration:none;color:inherit;display:grid">
-        <div>
-          <div class="pc-cat">Medical Robotics · IROS 2026 Under Review</div>
-          <h2 class="pc-title">Anatomy-Specific Guidewire Personalization for Neuroendovascular Navigation</h2>
-          <div class="result-badge" style="--pc-accent:#a78bfa;background:rgba(167,139,250,0.06);border-color:rgba(167,139,250,0.18)">📄 Paper under review at IROS 2026</div>
-          <p class="pc-desc">Patient-specific optimization of guidewire stiffness and shape profiles for neuroendovascular navigation through tortuous Internal Carotid Artery geometries. Combines physics-based simulation with genetic algorithms and real hardware validation.</p>
-          <ul class="pc-highlights">
-            <li><strong>Anatomy Classification:</strong> 100-patient TOF-MRA dataset processed with VMTK to extract ICA centerlines and surface meshes, classified by tortuosity and curvature severity into patient-specific groups.</li>
-            <li><strong>Physics Simulation (SOFA Framework):</strong> BeamAdapter plugin models guidewire-vessel contact mechanics and deformable body dynamics for each patient anatomy.</li>
-            <li><strong>Genetic Algorithm Optimization:</strong> Iterative optimization of guidewire stiffness and pre-shaped tip profiles to minimize navigation difficulty metrics per anatomy class.</li>
-            <li><strong>Benchtop Validation:</strong> Optimized guidewire configurations tested on anatomical phantoms using a custom robotic actuator with fluoroscopic tracking for real-world measurement of tip deflection and contact force.</li>
-            <li><strong>Surgical Replication:</strong> Shaped guidewire profiles validated to match the technique of an experienced surgeon, confirming clinical relevance of the optimized designs.</li>
-          </ul>
-          <div class="github-strip">
-            <span class="github-link" style="pointer-events:none">Read full thesis page →</span>
-          </div>
-        </div>
-        <div>
-          <div style="background:var(--surface2);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:28px;height:100%;display:flex;flex-direction:column;justify-content:center;gap:18px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px">Research Pipeline</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="background:var(--surface);border:1px solid rgba(167,139,250,0.25);border-left:3px solid #a78bfa;border-radius:4px;padding:12px 16px">
-                <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px">Patient Segmentation</div>
-                <div style="font-size:12px;color:var(--text-dim)">TOF-MRA · VMTK · PyVista · ICA geometry extraction</div>
-              </div>
-              <div style="background:var(--surface);border:1px solid rgba(167,139,250,0.25);border-left:3px solid #a78bfa;border-radius:4px;padding:12px 16px">
-                <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px">Physics Simulation</div>
-                <div style="font-size:12px;color:var(--text-dim)">SOFA Framework · BeamAdapter · contact mechanics</div>
-              </div>
-              <div style="background:var(--surface);border:1px solid rgba(167,139,250,0.25);border-left:3px solid #a78bfa;border-radius:4px;padding:12px 16px">
-                <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px">Optimization</div>
-                <div style="font-size:12px;color:var(--text-dim)">Genetic algorithm · stiffness + shape profile tuning</div>
-              </div>
-              <div style="background:var(--surface);border:1px solid rgba(167,139,250,0.25);border-left:3px solid #a78bfa;border-radius:4px;padding:12px 16px">
-                <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px">Hardware Validation</div>
-                <div style="font-size:12px;color:var(--text-dim)">Anatomical phantoms · fluoroscopic tracking · surgeon comparison</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </section>
-
 </div>
 
 <footer>
